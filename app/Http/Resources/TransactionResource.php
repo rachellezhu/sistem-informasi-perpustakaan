@@ -23,8 +23,8 @@ class TransactionResource extends JsonResource
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
             'student' => $this->student()->get(),
-            'user' => $this->user()->get(),
-            'book' => $this->book()->get(),
+            'user' => $this->user()->withTrashed()->get(),
+            'book' => $this->book()->withTrashed()->get(),
         ];
     }
 }

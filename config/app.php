@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Translation\TranslationServiceProvider as BaseTranslationServiceProvider;
-use LaravelLang\JsonFallbackHotfix\TranslationServiceProvider as JsonTranslationServiceProvider;
+use LaravelLang\JsonFallback\TranslationServiceProvider as JsonTranslationServiceProvider;
 
 
 
@@ -172,7 +172,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-    ])->replace([BaseTranslationServiceProvider::class => JsonTranslationServiceProvider::class,])->toArray(),
+    ])->replace([
+        BaseTranslationServiceProvider::class => JsonTranslationServiceProvider::class,
+    ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------

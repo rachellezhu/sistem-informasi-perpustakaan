@@ -15,7 +15,12 @@ function StudentsTable({ currentItems }) {
       </thead>
       <tbody>
         {currentItems.map((student, index) => (
-          <tr key={student.id}>
+          <tr
+            key={student.id}
+            className={`${
+              student.deleted_at ? "bg-red-300 dark:bg-red-700" : ""
+            }`}
+          >
             <td className="border px-2 py-1 align-top">{index + 1}</td>
             <td className="border px-2 py-1 align-top">{student.name}</td>
             <td className="border px-2 py-1 align-top text-center">

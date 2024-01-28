@@ -13,7 +13,7 @@
     "illuminate/support": "*",
     "illuminate/translation": "*",
     "inertiajs/inertia-laravel": "^0.6.3",
-    "laravel-lang/json-fallback-hotfix": "*",
+    "laravel-lang/json-fallback": "*",
     "laravel-lang/lang": "*",
     "laravel-lang/locale-list": "*",
     "laravel-lang/locales": "*",
@@ -28,7 +28,7 @@
   "require-dev": {
     "fakerphp/faker": "^1.9.1",
     "laravel-lang/attributes": "*",
-    "laravel-lang/common": "*",
+    "laravel-lang/common": "^6.1",
     "laravel-lang/http-statuses": "*",
     "laravel-lang/publisher": "*",
     "laravel/breeze": "^1.23",
@@ -58,7 +58,8 @@
       "@php artisan package:discover --ansi"
     ],
     "post-update-cmd": [
-      "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+      "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+      "@php artisan lang:update"
     ],
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""

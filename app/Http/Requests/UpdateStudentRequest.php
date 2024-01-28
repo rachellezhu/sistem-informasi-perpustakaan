@@ -23,7 +23,7 @@ class UpdateStudentRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:255'],
-            'card_number' => ['required', 'max:255', 'unique:students'],
+            'card_number' => ['required', 'max:255'],
         ];
     }
 }

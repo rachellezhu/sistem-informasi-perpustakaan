@@ -70,7 +70,9 @@ function BookDetail() {
     data.publisher === book.data.publisher.at(0).name &&
     data.year_published === book.data.year_published &&
     data.quantity === book.data.quantity &&
-    data.information === book.data.information;
+    (book.data.information === null
+      ? data.information === ""
+      : data.information === book.data.information);
 
   useEffect(() => {
     if (!flash.update) return;
@@ -113,6 +115,7 @@ function BookDetail() {
   }
 
   function handleYearPublishedChange(data) {
+    if (data.length >= 5) return;
     if (data === "" || numbers.test(data)) setData("year_published", data);
   }
 
@@ -255,7 +258,7 @@ function BookDetail() {
                       onChange={(e) =>
                         handleYearPublishedChange(e.target.value)
                       }
-                      pattern="[0-9]{4}"
+                      pattern="^[0-9\b]{4}"
                       inputMode="numeric"
                       required
                     />
@@ -274,7 +277,7 @@ function BookDetail() {
                       className="mt-1 block w-full"
                       value={data.quantity}
                       onChange={(e) => handleQuantityChange(e.target.value)}
-                      pattern="[0-9]"
+                      pattern="^[0-9\b]+$"
                       inputMode="numeric"
                       required
                     />

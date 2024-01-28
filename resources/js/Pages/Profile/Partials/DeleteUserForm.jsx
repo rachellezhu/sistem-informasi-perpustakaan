@@ -5,7 +5,7 @@ import InputLabel from "@/Components/InputLabel";
 import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 import TextInput from "@/Components/TextInput";
-import { useForm } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 
 export default function DeleteUserForm({ className = "" }) {
   const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
@@ -21,6 +21,10 @@ export default function DeleteUserForm({ className = "" }) {
   } = useForm({
     password: "",
   });
+
+  const numAdmin = usePage().props.numAdmin;
+  const isAdmin = usePage().props.auth.user.is_admin;
+  const oneAdminLeft = numAdmin < 2 && isAdmin;
 
   const confirmUserDeletion = () => {
     setConfirmingUserDeletion(true);
@@ -51,12 +55,23 @@ export default function DeleteUserForm({ className = "" }) {
         </h2>
 
         <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Akun anda akan dihapus. Hubungi admin jika Anda ingin membuat akun
-          baru atau memulihkan akun ini.
+          {oneAdminLeft ? (
+            <>
+              Anda adalah satu-satunya admin di sistem ini sehingga Anda tidak
+              dapat menghapus akun anda.
+            </>
+          ) : (
+            <>
+              Akun anda akan dihapus. Hubungi admin jika Anda ingin membuat akun
+              baru atau memulihkan akun ini.
+            </>
+          )}
         </p>
       </header>
 
-      <DangerButton onClick={confirmUserDeletion}>Hapus Akun</DangerButton>
+      <DangerButton onClick={confirmUserDeletion} disabled={oneAdminLeft}>
+        Hapus Akun
+      </DangerButton>
 
       <Modal show={confirmingUserDeletion} onClose={closeModal}>
         <form onSubmit={deleteUser} className="p-6">
@@ -94,7 +109,10 @@ export default function DeleteUserForm({ className = "" }) {
           <div className="mt-6 flex justify-end">
             <SecondaryButton onClick={closeModal}>Kembali</SecondaryButton>
 
-            <DangerButton className="ml-3" disabled={processing}>
+            <DangerButton
+              className="ml-3"
+              disabled={processing || oneAdminLeft}
+            >
               Hapus Akun
             </DangerButton>
           </div>

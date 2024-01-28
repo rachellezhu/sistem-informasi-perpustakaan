@@ -10,7 +10,7 @@ export default function Guest({ children }) {
         </Link>
         <div className="mt-2 mx-auto">
           <h1 className="text-xl font-bold uppercase text-gray-800 dark:text-gray-200">
-            Perpustakaan
+            Sistem Informasi Perpustakaan SDN Pabelan 2 Kartasura
           </h1>
         </div>
       </div>

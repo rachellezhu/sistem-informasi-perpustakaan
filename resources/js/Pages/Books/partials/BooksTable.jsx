@@ -19,7 +19,10 @@ function BooksTable({ currentItems }) {
       </thead>
       <tbody>
         {currentItems.map((book, index) => (
-          <tr key={book.id}>
+          <tr
+            key={book.id}
+            className={`${book.deleted_at ? "bg-red-300 dark:bg-red-700" : ""}`}
+          >
             <td className="border px-2 py-1 align-top">{index + 1}</td>
             <td className="border px-2 py-1 align-top">{book.title}</td>
             <td className="hidden sm:table-cell border px-2 py-1 align-top text-center">

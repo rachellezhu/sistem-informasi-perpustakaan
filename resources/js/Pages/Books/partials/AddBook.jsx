@@ -96,6 +96,7 @@ function AddBook() {
   }
 
   function handleYearPublishedChange(data) {
+    if (data.length >= 5) return;
     if (data === "" || numbers.test(data)) setData("year_published", data);
   }
 
@@ -232,7 +233,7 @@ function AddBook() {
                       onChange={(e) =>
                         handleYearPublishedChange(e.target.value)
                       }
-                      pattern="[0-9]{4}"
+                      pattern="^[0-9\b]{4}"
                       inputMode="numeric"
                       required
                     />
@@ -251,7 +252,7 @@ function AddBook() {
                       className="mt-1 block w-full"
                       value={data.quantity}
                       onChange={(e) => handleQuantityChange(e.target.value)}
-                      pattern="[0-9]"
+                      pattern="^[0-9\b]+$"
                       inputMode="numeric"
                       required
                     />
