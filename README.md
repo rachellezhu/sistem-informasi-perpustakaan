@@ -46,6 +46,8 @@ In the root directory of this project, execute these following commands on termi
 
 `php artisan key:generate`
 
+`php artisan optimize`
+
 `php artisan serve`
 
 Dev process, execute this command on separated terminal:
