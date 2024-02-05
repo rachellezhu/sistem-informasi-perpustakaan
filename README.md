@@ -3,6 +3,7 @@
 This project is built by:
 
 **Royan Saifur Robbi - L200190196**
+
 as a final project for graduation requirements.
 
 This project is built using:
@@ -48,7 +49,7 @@ In the root directory of this project, execute these following commands on termi
 
 `php artisan optimize`
 
-`php artisan serve`
+`php artisan serve` or `php artisan ser`
 
 Dev process, execute this command on separated terminal:
 
@@ -58,6 +59,8 @@ To build the FE:
 
 `npm run build`
 
-Populate dummy data:
+Populate dummy data execute the command below before `php artisan serve` or `php artisan ser`:
 
 `php artisan db:seed`
+
+Sorry for the boilerplatey code. Good luck
