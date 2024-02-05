@@ -24,13 +24,19 @@ class DashboardController extends Controller
     {
         $books = Book::sum('quantity');
 
-        $deadline_today = Transaction::whereDate('end_time', today('+7')->endOfDay())->count();
+        $deadline_today = Transaction::whereDate('end_time', today()->endOfDay())->count();
 
         $late = Transaction::whereNull('return_time')
-            ->whereDate('end_time', '<', today('+7')->startOfDay())
+            ->whereDate('end_time', '<', today()->startOfDay())
             ->count();
 
-        $today = Transaction::whereDate('start_time', today('+7')->endOfDay())->count();
+        $nextDayReturns = Transaction::where([
+            ['end_time', '<', today()->addDay()->endOfDay()],
+            ['end_time', '>', today()->endOfDay()],
+            ['return_time', '=', null],
+        ])->with('book', 'student')->count();
+
+        $today = Transaction::whereDate('start_time', today()->endOfDay())->count();
 
         $was_returned = Transaction::whereNotNull('return_time')->count();
 
@@ -38,6 +44,7 @@ class DashboardController extends Controller
             'books' => $books,
             'deadlineToday' => $deadline_today,
             'late' => $late,
+            'nextDayReturns' => $nextDayReturns,
             'today' => $today,
             'transactions' => Transaction::count(),
             'titles' => Book::count(),

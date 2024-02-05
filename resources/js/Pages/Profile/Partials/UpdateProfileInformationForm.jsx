@@ -19,8 +19,8 @@ export default function UpdateProfileInformation({
       email: user.email,
     });
   const isExactlySame =
-    data.name === user.name ||
-    data.username === user.username ||
+    data.name === user.name &&
+    data.username === user.username &&
     data.email === user.email;
   const isEmpty = data.name === "" || data.username === "" || data.email === "";
 

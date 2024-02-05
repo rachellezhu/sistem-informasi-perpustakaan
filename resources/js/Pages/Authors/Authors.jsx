@@ -6,13 +6,7 @@ import ShowAuthors from "./partials/ShowAuthors";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useState } from "react";
-
-const items = [
-  { name: "Buku", route: "book" },
-  { name: "Kategori", route: "category" },
-  { name: "Penulis", route: "author" },
-  { name: "Penerbit", route: "publisher" },
-];
+import { items } from "@/ItemsAttributes/bookAttributes";
 
 function Authors() {
   const { auth, flash } = usePage().props;

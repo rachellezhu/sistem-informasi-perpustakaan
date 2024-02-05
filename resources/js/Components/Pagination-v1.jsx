@@ -13,7 +13,7 @@ function Pagination({ children, items, ItemsPage, itemsPerPage = 5 }) {
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
-  const params = window.location.search
+  const params = new URLSearchParams(window.location.search).get("page")
     ? new URLSearchParams(window.location.search).get("page") - 1
     : 0;
   const [initialPage, setInitialPage] = useState(params);

@@ -11,9 +11,12 @@ use App\Models\SchoolClass;
 use App\Models\Setting;
 use App\Models\Student;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -24,8 +27,78 @@ class TransactionController extends Controller
      */
     public function index(): Response
     {
+        $year = today()->year;
+        $from = Carbon::createFromDate($year, 6, 16)->startOfDay();
+        $to = Carbon::createFromDate($year, 6, 15)->endOfDay();
+
+        if (today() < $from) {
+            $from = Carbon::createFromDate($year - 1, 6, 16);
+        } elseif (today() < $to) {
+            $to = Carbon::createFromDate($year + 1, 6, 15);
+        }
+
+        $academicYear = $from->year . '-' . $to->year;
+
+        $students = Student::with(
+            ['transactions' => function ($query) {
+                $query->where([
+                    ['return_time', '=', null],
+                    ['end_time', '<', now()],
+                ])->with('book');
+            }, 'school_class'],
+        )->orderBy('name')->get();
+
+        $popularBook = Transaction::join('books', 'book_id', '=', 'books.id')
+            ->select(DB::raw('books.title'), DB::raw('COUNT(books.title) AS count'))
+            ->groupBy('books.title')
+            ->orderBy('count', 'DESC')
+            ->first();
+
+        // dd($books);
+
+        $late = Transaction::where([
+            ['end_time', '<', now()],
+            ['return_time', '=', null],
+        ])->with('book', 'student')->orderBy('start_time')->get();
+
+        $last30days = Transaction::where([
+            ['start_time', '>', today()->subDays(30)],
+        ])->with('book', 'student', 'user')->get();
+
+        $nextDayReturns = Transaction::where([
+            ['end_time', '<', today()->addDay()->endOfDay()],
+            ['end_time', '>', today()->endOfDay()],
+            ['return_time', '=', null],
+        ])->with('book', 'student')->get();
+
+        $currentAcademicYearTransactions = Transaction::where([
+            ['start_time', '>=', $from],
+            ['start_time', '<=', $to],
+        ])->with('book', 'student')->get();
+
+        $transactions = Transaction::with('book', 'student')->get();
+
+        if (Request::only('filter') && Request::only('filter')['filter'] === 'terlambat') {
+            $transactions = $late;
+        }
+        if (Request::only('filter') && Request::only('filter')['filter'] === '30HariTerakhir') {
+            $transactions = $last30days;
+        }
+        if (Request::only('filter') && Request::only('filter')['filter'] === 'dikembalikanBesok') {
+            $transactions = $nextDayReturns;
+        }
+        if (Request::only('filter') && Request::only('filter')['filter'] === $academicYear) {
+            $transactions = $currentAcademicYearTransactions;
+        }
+
         return Inertia::render('Transactions/Transactions', [
-            'transactions' => Transaction::with('book', 'student')->get(),
+            'currentAcademicYearTransactions' => $currentAcademicYearTransactions,
+            'currYear' => $currentAcademicYearTransactions->count(),
+            'lastMonth' => $last30days->count(),
+            'late' => $late->count(),
+            'popularBook' => $popularBook,
+            'lateStudents' => $students,
+            'transactions' => $transactions,
         ]);
     }
 
@@ -59,8 +132,8 @@ class TransactionController extends Controller
         $transaction->student_id = $student->id;
         $transaction->book_id = $book->id;
         $transaction->user_id = Auth::id();
-        $transaction->start_time = now('+7');
-        $transaction->end_time = now('+7')->addDays(Setting::first()->day);
+        $transaction->start_time = now();
+        $transaction->end_time = now()->addDays(Setting::first()->day);
 
         $transaction->save();
 
@@ -99,9 +172,9 @@ class TransactionController extends Controller
      */
     public function update(Transaction $transaction): RedirectResponse
     {
-        $transaction->update(['return_time' => now('+7')]);
+        $transaction->update(['return_time' => now()]);
 
-        return Redirect::route('transaction.edit', $transaction->id)
+        return to_route('transaction.edit', $transaction->id)
             ->with('update', 'Transaksi peminjaman berhasil diselesaikan');
     }
 

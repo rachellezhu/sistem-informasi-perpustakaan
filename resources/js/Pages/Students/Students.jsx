@@ -6,11 +6,7 @@ import ShowStudents from "./partials/ShowStudents";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
-
-const items = [
-  { name: "Siswa", route: "student" },
-  { name: "Kelas", route: "schoolClass" },
-];
+import { items } from "@/ItemsAttributes/studentAttributes";
 
 function Students() {
   const { auth, flash } = usePage().props;

@@ -9,6 +9,7 @@ function Dashboard() {
     books,
     deadlineToday,
     late,
+    nextDayReturns,
     publishers,
     schoolClasses,
     students,
@@ -53,6 +54,11 @@ function Dashboard() {
                 <div className="flex justify-between">
                   <span>Batas pengembalian hari ini : </span>
                   <span>{deadlineToday}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span>Batas pengembalian hari besok : </span>
+                  <span>{nextDayReturns}</span>
                 </div>
 
                 <div className="flex justify-between">

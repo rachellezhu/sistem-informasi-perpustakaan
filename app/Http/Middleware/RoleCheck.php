@@ -20,7 +20,9 @@ class RoleCheck
             return redirect('/');
         }
         if (!Auth::user()->is_admin) {
-            return response()->json(['Anda tidak memiliki izin untuk mengakses halaman ini. Silakan hubungi admin atau kepala sekolah']);
+            return response()->json([
+                'Anda tidak memiliki izin untuk mengakses halaman ini. Silakan hubungi admin atau kepala sekolah'
+            ]);
         }
         return $next($request);
     }

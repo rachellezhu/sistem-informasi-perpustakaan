@@ -11,25 +11,25 @@ export default defineConfig({
     }),
     react(),
   ],
-  // server: {
-  //   // proxy: {
-  //   //   "perpustakaan-sdn-pabelan-2-kartasura-fe.royansaifurrobbi.my.id": {
-  //   //     target: "localhost:5173",
-  //   //     changeOrigin: true,
-  //   //     secure: false,
-  //   //   },
-  //   // },
-  //   hmr: {
-  //     host: "localhost",
-  //   },
-  //   host: true,
-  //   // watch: {
-  //   //   usePolling: true,
-  //   // },
-  //   https: true,
-  //   // https: {
-  //   //   key: fs.readFileSync(".certificate/roysr.key"),
-  //   //   cert: fs.readFileSync(".certificate/roysr.crt"),
-  //   // },
-  // },
+  server: {
+    // proxy: {
+    //   "perpustakaan-sdn-pabelan-2-kartasura-fe.royansaifurrobbi.my.id": {
+    //     target: "localhost:5173",
+    //     changeOrigin: true,
+    //     secure: false,
+    //   },
+    // },
+    // hmr: {
+    //   host: "localhost",
+    // },
+    // host: true,
+    // watch: {
+    //   usePolling: true,
+    // },
+    https: true,
+    // https: {
+    //   key: fs.readFileSync(".certificate/roysr.key"),
+    //   cert: fs.readFileSync(".certificate/roysr.crt"),
+    // },
+  },
 });

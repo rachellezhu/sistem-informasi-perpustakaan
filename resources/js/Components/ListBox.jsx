@@ -49,17 +49,19 @@ function ListBox({ items, selectedItem, setSelectedItem }) {
                   as={Fragment}
                 >
                   {({ active }) => (
-                    <li
-                      className={`${
-                        active ? "bg-gray-300 dark:bg-gray-800" : ""
-                      }`}
-                    >
+                    <li>
                       <Link
                         as="button"
-                        className="w-full text-left"
-                        href={route(item.route)}
+                        className="w-full h-full text-left"
+                        href={item.route}
                       >
-                        {item.name}
+                        <div
+                          className={`${
+                            active ? "bg-gray-300 dark:bg-gray-800" : ""
+                          }`}
+                        >
+                          {item.name}
+                        </div>
                       </Link>
                     </li>
                   )}
