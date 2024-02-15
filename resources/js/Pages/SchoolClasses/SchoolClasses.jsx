@@ -6,7 +6,7 @@ import ShowSchoolClasses from "./partials/ShowSchoolClasses";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { items } from "@/ItemsAttributes/bookAttributes";
+import { items } from "@/ItemsAttributes/studentAttributes";
 
 function SchoolClasses() {
   const { auth, flash } = usePage().props;
