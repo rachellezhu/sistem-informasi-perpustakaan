@@ -1,19 +1,19 @@
 # Sistem Informasi Perpustakaan Berbasis Web pada SDN Pabelan 2 Kartasura
 
-This project is built by:
+This project was built by:
 
 **Royan Saifur Robbi - L200190196**
 
-as a final project for graduation requirements.
+as part of the graduation requirements.
 
-This project is built using:
+This project was built using:
 
 - [Laravel 10](https://laravel.com/)
 - [Laravel Brezee](https://github.com/laravel/breeze)
 - [InertiaJS](https://inertiajs.com/)
 - [ReactJS](https://react.dev/)
-- [Html5-QRCode](https://github.com/mebjas/html5-qrcode) for barcode scanner
-- [React-pdf](https://react-pdf.org/) for creating pdf
+- [Html5-QRCode](https://github.com/mebjas/html5-qrcode) for the barcode scanner
+- [React-pdf](https://react-pdf.org/) for creating PDFs
 
 ## Requirements
 
@@ -27,7 +27,7 @@ This project is built using:
 
 ## Installation
 
-In the root directory of this project, execute these following commands on terminal:
+Execute the following commands in the terminal in the root directory of this project:
 
 `composer update`
 
@@ -51,7 +51,7 @@ In the root directory of this project, execute these following commands on termi
 
 `php artisan serve` or `php artisan ser`
 
-Dev process, execute this command on separated terminal:
+For development, execute this command in a separated terminal:
 
 `npm run dev`
 
@@ -59,8 +59,8 @@ To build the FE:
 
 `npm run build`
 
-Populate dummy data execute the command below before `php artisan serve` or `php artisan ser`:
+To populate dummy data execute the command below before `php artisan serve` or `php artisan ser`:
 
 `php artisan db:seed`
 
-Sorry for the boilerplatey code. Good luck
+Sorry for the boilerplatey code. Good luck!
